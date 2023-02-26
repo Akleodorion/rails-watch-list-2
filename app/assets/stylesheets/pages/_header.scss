@@ -1,0 +1,23 @@
+.header {
+  margin: 0 auto;
+  padding: 0 auto;
+  text-align: center;
+  height: 30vh;
+  background-image: url('cinema_image.jpg');
+  background-position: center;
+  background-size: fill;
+  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+}
+
+.header-text {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.header h1 {
+  margin-bottom: 20px;
+}
+
+.header p {
+  margin-top: 10vh;
+}

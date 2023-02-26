@@ -1,17 +1,30 @@
-<h1>Lists#index</h1>
-<hr>
-<br>
-<br>
 
-<ul>
+<div class="cards mt-5">
+
   <% @lists.each do |list| %>
-    <li><%= link_to list.name, list_path(list) %></li>
+    <% if list.movies.exists? %>
+      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= list.movies.sample[:poster_url]%>)">
+        <%= link_to list.name, list_path(list) %>
+      </div>
+    <% else %>
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA4tXENtPf8nswNh6cVc1JejrIy2V6L0n_-g&usqp=CAU"%>)">
+          <%= link_to list.name, list_path(list) %>
+        </div>
+    <% end %>
   <% end %>
-</ul>
+
+</div>
+
+
 
 <hr>
 
-<%= simple_form_for(@list) do |f| %>
-  <%= f.input :name %>
-  <%= f.submit %>
-<% end %>
+
+<div class="form-card">
+  <%= simple_form_for(@list) do |f| %>
+    <%= f.input :name, label: 'Provide the name of the new list'%>
+    <%= f.button :button, class: "form-btn" do %>
+        Create a list
+    <% end %>
+  <% end %>
+</div>

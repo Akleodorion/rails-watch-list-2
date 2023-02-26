@@ -1,21 +1,32 @@
-<h1><%= @list.name %></h1>
-<hr>
+<div class="show-container">
+  <h1><%= @list.name %></h1>
+  <hr>
 
-<ul>
-  <% @list.bookmarks.each do |bookmark| %>
-    <li>
-      <%= bookmark.movie.title %>: <%= bookmark.comment %>:
-      <%= link_to 'Delete this bookmark', list_bookmark_path(@list,bookmark), data: {turbo_method: :delete} %>
-    </li>
-  <% end %>
-</ul>
+  <div class="cards">
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="card-product">
+        <img src=<%= bookmark.movie[:poster_url]%> />
+        <div class="card-product-infos">
+          <h2><%= bookmark.movie.title %></h2>
+          <p><%= bookmark.comment %></p>
+          <%= link_to list_bookmark_path(@list,bookmark), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet utilisateur ?"} do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <hr>
 
-<hr>
 
-<%= simple_form_for([@list, @bookmark]) do |f| %>
-  <%= f.association :movie %>
-  <%= f.input :comment %>
-  <%= f.submit%>
-<% end %>
-
-<%= link_to 'Back to index', root_path %>
+  <div class="form-card mb-5">
+    <%= simple_form_for([@list, @bookmark]) do |f| %>
+      <%= f.association :movie, label: 'Please select a movie from the list' %>
+      <%= f.input :comment, label: 'Provide us a comment for this bookmark' %>
+      <%= f.button :button, class: "form-btn" do %>
+        Create a bookmark
+    <% end %>
+    <% end %>
+  </div>
+  <%= link_to 'Back to index', root_path, class: "back-btn" %>
+</div>
